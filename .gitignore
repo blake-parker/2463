@@ -1,13 +1,8 @@
-# Ignore compiled files
-*.class
-*.jar
-
-# Ignore build output directories
-target/
-out/
-
 # Ignore the "libraries" folder
 Graphics/libraries/
 
 # Ignore the "jsconfig.json" file
 Graphics/jsconfig.json
+
+#ignore gitignore
+.gitignore
