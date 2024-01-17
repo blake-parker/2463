@@ -1,0 +1,13 @@
+# Ignore compiled files
+*.class
+*.jar
+
+# Ignore build output directories
+target/
+out/
+
+# Ignore the "libraries" folder
+libraries/
+
+# Ignore the "jsconfig.json" file
+jsconfig.json
