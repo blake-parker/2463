@@ -7,7 +7,7 @@ target/
 out/
 
 # Ignore the "libraries" folder
-libraries/
+Graphics/libraries/
 
 # Ignore the "jsconfig.json" file
-jsconfig.json
+Graphics/jsconfig.json
