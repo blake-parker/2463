@@ -3,7 +3,7 @@ function setup() {
   background("white");
 }
 
-var colorSelected;
+var colorSelected = "red";
 
 //color selections including mouse boundaries.
 function mousePressed() {
