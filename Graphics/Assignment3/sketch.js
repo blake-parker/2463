@@ -1,34 +1,48 @@
-let spriteSheet;
-let cx = 400;
-let cy = 250;
-
-let walkingAnimation;
-let wa2;
+let sheets = [
+  "SpelunkyGuy.png",
+  "Green.png",
+  "Blue.png",
+  "Cyan.png",
+  "Cyclops.png",
+  "Viking.png",
+  "Golden_Monk.png",
+];
+let loadedSheets = [];
+let animations = [];
 function preload() {
-  spriteSheet = loadImage("SpelunkyGuy.png");
+  sheets.forEach((e) => {
+    loadedSheets.push(loadImage(e));
+  });
 }
 
 function setup() {
   createCanvas(800, 500);
   imageMode(CENTER);
-  walkingAnimation = new Person(spriteSheet, 80, 80, cx, cy, 9);
-  wa2 = new Person(spriteSheet, 80, 80, random(100, 700), random(100, 400), 9);
+
+  loadedSheets.forEach((e) => {
+    animations.push(
+      new Person(e, 80, 80, random(300, 500), random(100, 400), 9)
+    );
+  });
 }
 
 function draw() {
   background("white");
-  walkingAnimation.draw();
-  wa2.draw();
+  animations.forEach((e) => {
+    e.draw();
+  });
 }
 
 function keyPressed() {
-  walkingAnimation.keyPressed();
-  wa2.keyPressed();
+  animations.forEach((e) => {
+    e.keyPressed();
+  });
 }
 
 function keyReleased() {
-  walkingAnimation.keyReleased();
-  wa2.keyReleased();
+  animations.forEach((e) => {
+    e.keyReleased();
+  });
 }
 
 class Person {
