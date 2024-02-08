@@ -12,6 +12,7 @@ function setup() {
 function draw() {
   background("white");
   timer.draw();
+  timer.start();
   score.draw();
 }
 
@@ -38,17 +39,25 @@ class Timer {
     this.x = posX;
     this.y = posY;
     this.timer = 30;
+    this.started = true;
   }
 
   draw() {
     text(`${this.text} ${this.timer}`, this.x, this.y);
-    if (frameCount % 60 === 0 && this.timer > 0) {
-      this.timer--;
-    }
   }
 
   getTimer() {
     return this.timer;
+  }
+
+  start() {
+    if (frameCount % 60 === 0 && this.timer > 0 && this.started) {
+      this.timer--;
+    }
+  }
+
+  stop() {
+    this.started = false;
   }
 }
 
