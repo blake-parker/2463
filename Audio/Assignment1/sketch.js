@@ -59,12 +59,6 @@ function setup() {
   s2.input(() => {
     PingPong.feedback.value = s2.value();
   });
-
-  // s3 = createSlider(0, 20, 0, 0.05);
-  // s3.position(cp.x + 150, cp.y + 300);
-  // s3.mouseMoved(() => {
-  //   chorus.depth.value = s3.value();
-  // });
 }
 
 function draw() {
