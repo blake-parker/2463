@@ -1,12 +1,12 @@
 let a, b, c;
 let fx = new Tone.Players({
-  Shutdown: "assets/Shutdown.mp3",
+  Camera: "assets/Camera.mp3",
   Hum: "assets/Hum.mp3",
   Over: "assets/Over.mp3",
   Whistle: "assets/Whistle.mp3",
 });
 
-let names = ["Shutdown", "Hum", "Over", "Whistle"];
+let names = ["Camera", "Hum", "Over", "Whistle"];
 let b1, b2, b3, b4;
 let PingPong = new Tone.PingPongDelay(0, 0.2);
 
@@ -24,10 +24,10 @@ function setup() {
 
   let inc = 120;
   let start = 150;
-  b1 = createButton("Shutdown");
+  b1 = createButton("Camera");
   b1.position(cp.x + start, cp.y + 40);
   b1.mousePressed(() => {
-    fx.player("Shutdown").start();
+    fx.player("Camera").start();
   });
 
   b2 = createButton("Hum");
