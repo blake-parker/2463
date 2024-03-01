@@ -1,11 +1,13 @@
 let synth = new Tone.PolySynth(Tone.Synth);
 let bend = new Tone.PitchShift();
-let dist = new Tone.Distortion(0.8);
+let dist = new Tone.Distortion();
+let cheby = new Tone.Chebyshev();
 
 bend.pitch = 0;
 dist.distortion = 0;
 synth.connect(bend);
-bend.connect(dist);
+bend.connect(cheby);
+cheby.connect(dist);
 dist.toDestination();
 
 let sliderY = 200;
@@ -25,6 +27,13 @@ function setup() {
   dSlider.position(cp.x + 360, cp.y + sliderY);
   dSlider.mouseMoved(() => {
     dist.distortion = dSlider.value();
+  });
+
+  let cSlider = createSlider(1, 100, 0, 2);
+  cSlider.style("transform", "rotate(270deg)");
+  cSlider.position(cp.x + 460, cp.y + sliderY);
+  cSlider.mouseMoved(() => {
+    cheby.order = cSlider.value();
   });
 }
 let notes = {
@@ -80,6 +89,7 @@ function draw() {
   fill(255);
   text("Pitch", 325, 300);
   text("Distortion", 430, 300);
+  text("Cheby", 530, 300);
 }
 
 function createHeading(input) {
