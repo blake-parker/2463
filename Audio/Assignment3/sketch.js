@@ -1,47 +1,57 @@
-let alien;
-let osc, oscNoise;
-let lfo, filt, filt2;
-let ampEnv;
+let powerup;
+let lfo;
+let mouseHasBeenClicked = false;
+let img;
+powerup = new Tone.Synth({
+  oscillator: {
+    type: "square",
+  },
+  envelope: {
+    attack: 0.015,
+    decay: 0.15,
+    sustain: 0.35,
+    release: 2,
+  },
+}).toDestination();
+
+lfo = new Tone.LFO({
+  frequency: 5,
+  type: "sine",
+  min: 200,
+  max: 800,
+}).start();
+
+lfo.connect(powerup.oscillator.frequency);
 
 function preload() {
-  alien = loadImage("alien.jpg");
+  img = loadImage("Tractor_Cannon_Icon.jpg");
 }
 
 function setup() {
-  createCanvas(400, 400);
-  imageMode(CENTER);
-  osc = new Tone.Oscillator(440, "sawtooth6").start();
-  osc.volume.value = -20;
-  filt = new Tone.Filter(500, "highpass");
-  lfo = new Tone.LFO(10, 650, 700).start();
-  oscNoise = new Tone.Noise().start();
-  oscNoise.volume.value = 15;
+  createCanvas(600, 400);
 
-  ampEnv = new Tone.AmplitudeEnvelope({
-    attack: 1.5,
-    decay: 1.5,
-    sustain: 1.0,
-    release: 1.5,
-  }).toMaster();
-
-  osc.connect(filt);
-  filt.connect(ampEnv);
-  lfo.connect(osc.frequency);
-}
-
-function mousePressed() {
-  if (mouseX <= 400 && mouseY <= 400) {
-    osc.frequency.value = "Bb4";
-    ampEnv.triggerAttackRelease(1.5);
-  }
+  img.resize(img.width / 2, img.height / 2);
 }
 
 function draw() {
-  background(100, 150, 200);
-  if (mouseIsPressed) {
-    image(alien, 200, 200, 220, 293);
+  background(69, 4, 20);
+  if (!mouseHasBeenClicked) {
+    text("Click the screen for a powerup!", 125, 50);
+    textSize(25);
+    fill("white");
+  } else {
+    text("Get Tractor Cannon'd Fella :3", 130, 50);
+    textSize(25);
+    fill("white");
+
+    image(img, 225, 125);
   }
-  textSize(15);
-  textAlign(CENTER);
-  text("Alien Takeoff! Click anywhere below", 125, 35);
+}
+
+function mouseClicked() {
+  if (mouseX > 0 && mouseX < 600 && mouseY > 0 && mouseY < 400) {
+    mouseHasBeenClicked = true;
+    powerup.triggerAttackRelease("G5", "8t", "+0.2");
+    powerup.triggerAttackRelease("B6", "8t", "+0.25");
+  }
 }
