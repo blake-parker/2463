@@ -28,3 +28,7 @@ a {
 a:hover {
   background-color: rgb(88, 101, 114);
 }
+
+.graphics{
+  color: rgb(102, 255, 0);
+}
