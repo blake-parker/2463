@@ -9,6 +9,8 @@ let tileSize = 64;
 let tileMap;
 let score = 0;
 let coinImg;
+let port;
+let joyX, joyY, sw;
 const spike = new Tone.Synth({
   oscillator: {
     type: "square",
@@ -64,6 +66,14 @@ playTrack3.loop = true;
 playTrack3.loopEnd = "0:0:64";
 beginSynth3.volume.value = -14;
 
+function connect() {
+  if (!port.opened()) {
+    port.open("Arduino", 9600);
+  } else {
+    port.close();
+  }
+}
+
 function preload() {
   player = new Player(loadImage("Assets/Guy.png"));
   tileset = loadImage("Assets/Tiles.png");
@@ -72,7 +82,10 @@ function preload() {
 }
 
 function setup() {
+  port = createSerial();
   createCanvas(canvW, canvH);
+  connectButton = createButton("Connect");
+  connectButton.mousePressed(connect);
   createGame();
 }
 
@@ -83,21 +96,28 @@ function draw() {
 }
 
 function movement() {
-  if (kb.pressing("a")) {
-    player.sprite.vel.x = -3;
-    player.sprite.ani = "run";
-    player.sprite.mirror.x = true;
-  } else if (kb.pressing("d")) {
-    player.sprite.vel.x = 3;
-    player.sprite.ani = "run";
-    player.sprite.mirror.x = false;
-  } else {
-    player.sprite.vel.x = 0;
-    player.sprite.ani = "stand";
-  }
-  if (kb.presses("space") && player.sprite.colliding(walkable)) {
-    player.sprite.vel.y = 30;
-    sounds.player("jump").start();
+  let str = port.readUntil("\n");
+  let values = str.split(",");
+  if (values.length > 2) {
+    joyX = values[0];
+    joyY = values[1];
+    sw = Number(values[2]);
+    if (joyX < 0) {
+      player.sprite.vel.x = -3;
+      player.sprite.ani = "run";
+      player.sprite.mirror.x = true;
+    } else if (joyX > 0) {
+      player.sprite.vel.x = 3;
+      player.sprite.ani = "run";
+      player.sprite.mirror.x = false;
+    } else {
+      player.sprite.vel.x = 0;
+      player.sprite.ani = "stand";
+    }
+    if (sw === 1 && player.sprite.colliding(walkable)) {
+      player.sprite.vel.y = 30;
+      sounds.player("jump").start();
+    }
   }
 }
 
@@ -191,7 +211,7 @@ function createGame() {
 }
 
 function checkPlaying() {
-  if (!playing) {
+  if (playing) {
     if (player.lives > -1) {
       textSize(20);
       text(`Score = ${score}`, 1000, 30);
@@ -215,6 +235,11 @@ function checkPlaying() {
         player.sprite.y = 630;
         player.lives--;
         spike.triggerAttackRelease("E3", "8n");
+      }
+      if (port.opened()) {
+        let msg = `${player.lives}\n`;
+        console.log(msg);
+        port.write(msg);
       }
     } else {
       background(0);
@@ -259,7 +284,7 @@ class Player {
       run: { row: 0, frames: 9 },
       jump: { row: 9, frames: 12 },
     });
-    p.debug = true;
+    p.debug = false;
     p.ani = "stand";
     this.lives = 2;
   }
