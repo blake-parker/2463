@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="document.css" />
     <title>Document</title>
 </head>
-<body style="text-align: center; background-color: black; color: white; padding-left: 200px; padding-right: 200px;">
+<body style="text-align: center; background-color: rgb(34, 33, 33); padding-left: 200px; padding-right: 200px; padding-bottom: 200px; font-size: 20px;">
     <div class="title">
         <h1>
         Blake Parker CSC 2463 Final Project Documentation
@@ -17,9 +18,8 @@
                 Description
             </h2>
             <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro, exercitationem reprehenderit! Nam veniam quod
-                maxime ut dolorum molestiae dicta enim libero, voluptatem voluptate at ducimus possimus mollitia earum delectus
-                illo.
+                Cave Game V2 is a simple platformer. Your main goal is to collect a varying amount of coins while avoiding spikes. You have a total of 3 lives
+                and an unlimited amount of time per stage to collect all of the coins.
             </p>
         </div>
         <div class="outline">
@@ -27,15 +27,54 @@
                 Outline
             </h2>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, asperiores dolorum repudiandae illo sapiente expedita facere labore, voluptatem libero, ratione iure alias voluptates itaque. Ab quae modi laborum nam ullam.
+                <h3>
+                    Controls
+                </h3>
+                <p>
+                    Using a simple joystick, you can move left and right.
+                    <br>
+                    Pressing down on the joystick allows you to jump.
+                </p>
+                <h3>
+                    Scoring
+                </h3>
+                <p>
+                    Collecting all the coins per level raises your score. Your total score at the end is the amount of coins collected.
+                </p>
+                <h3>
+                    Graphics And Sound
+                </h3>
+                <p>
+                    This game was made using the character sprite animations from the game 
+                    Spelunky as well as the tilesets provided. It was able to be stitched together
+                    to form an easily editable map.
+                    <br>
+                    The sound was made using ToneJS and simple audio samples.
+                </p>
+                <h3>
+                    Requirements
+                </h3>
+                <p>
+                    In order to play this game to its most effective, you should have an Ardunio.
+                    <br>
+                    Connect a joystick to it, as well as setup 2 simple LED's wired to pins 3 and 4.
+                    <br>
+                    The joystick should be wired to pins 2, A0, and A1.
+                </p>
             </p>
         </div>
         <div class="imgs">
             <h2>
                 Images
             </h2>
-            <img src="
-            " alt="">
+            <img src="/FinalProj/Assets/Start.png" alt="" style="max-width: 50%; max-height: 50%">
+            <p>An image showing the start screen where the player is prompted to press "Space" to start the game.</p>
+            <img src="/FinalProj/Assets/Gameplay.png" alt="" style="max-width: 50%; max-height: 50%">
+            <p>
+                An image showing the gameplay screen where the player is either able to play the game freely
+                <br>
+                or connect at the bottom, allowing them to connect their Arduino device of choice.
+            </p>
         </div>
         <div class="video">
             <h2>
@@ -52,7 +91,7 @@
             <h2>
                 Future Development
             </h2>
-            <p>
+            <p style="padding-left: 200px; padding-right: 200px;">
                 If I continued to work on this game, there are a few things I would add. The first of these would be an end state for a level that allowed
                 you to transition to a new level even if you don't collect all of the coins. Aother thing I would add is additional levels 
                 and powerups. These would be rather easy to implement, as you could either make a new tilemap and have it transition, or just make it 
